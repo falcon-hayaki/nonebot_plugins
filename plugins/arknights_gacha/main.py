@@ -12,4 +12,5 @@ async def arknights_gacha(session: CommandSession):
     content = ctx.raw_message
     ga = Gacha(ctx.user_id)
     await ga.init_data()
-    await session.send(ga.get_reply(content))
+    msg = await ga.get_reply(content)
+    await session.send(msg)
