@@ -24,13 +24,13 @@ class Gacha():
         self.user_id = str(user_id)
         if content:
             self.content = content
-        if self.user_id not in self.user_data:
-            user_info = dict(total_draw=0, last_ssr=0, history=dict(ssr=0, sr=0, r=0, n=0, detail=dict()))
-            self.user_data[self.user_id] = user_info
 
     async def init_data(self):
         self.pool = await fileio.read_json(join(resource_path, 'pool.json'))
         self.user_data = await fileio.read_json(join(resource_path, 'user_data.json'))
+        if self.user_id not in self.user_data:
+            user_info = dict(total_draw=0, last_ssr=0, history=dict(ssr=0, sr=0, r=0, n=0, detail=dict()))
+            self.user_data[self.user_id] = user_info
     
     async def get_reply(self, content=None):
         if not content and not self.content:
