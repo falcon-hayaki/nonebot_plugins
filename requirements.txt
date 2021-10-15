@@ -1,2 +1,5 @@
 nonebot
 numpy
+nonebot[scheduler]
+pymongo
+motor

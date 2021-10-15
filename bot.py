@@ -1,4 +1,3 @@
-from posixpath import join
 import nonebot
 import config
 
