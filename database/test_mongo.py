@@ -4,9 +4,9 @@ from motor.motor_asyncio import AsyncIOMotorClient
 class Mongo():
     def __init__(self, uri=None) -> None:
         if uri:
-            self.db = AsyncIOMotorClient(uri)
+            self.db = AsyncIOMotorClient(uri).nonebot
         else:
-            self.db = AsyncIOMotorClient("mongodb://127.0.0.1:27017/nonebot")
+            self.db = AsyncIOMotorClient("mongodb://127.0.0.1:27017").nonebot
 
 class TestMongoClient():
     def __init__(self):
@@ -14,7 +14,7 @@ class TestMongoClient():
         self.db = mongo.db.test_collection
     
     async def find(self):
-        res = await list(self.db.find({}))
+        res = list(self.db.find_one({}))
         print(res)
     
     async def insert(self, data):
