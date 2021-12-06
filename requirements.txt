@@ -3,3 +3,4 @@ numpy
 nonebot[scheduler]
 pymongo
 motor
+Pillow
