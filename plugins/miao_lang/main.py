@@ -10,11 +10,11 @@ miao = Miao()
 @deco.only_these_msg('group')
 async def reply(session: CommandSession):
     message = session.ctx.raw_message
-    command, text = parse_message(message)
-    if command == '喵喵':
-        await session.send(miao.encode(text))
-    elif command == '说人话':
+    _, text = parse_message(message)
+    if miao.is_miao(text):
         await session.send(miao.decode(text))
+    else:
+        await session.send(miao.encode(text))
     
 def parse_message(message):
     message_split = message.split(' ')

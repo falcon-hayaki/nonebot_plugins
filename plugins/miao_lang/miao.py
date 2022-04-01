@@ -26,6 +26,9 @@ class Miao():
     def clean(self, text):
         regex = re.compile('[^{}]'.format(''.join(self._miaos)))
         return regex.sub('', text)
+    
+    def is_miao(self, text):
+        return self.clean(text)
         
     def decode(self, text):
         text = self.clean(text)
