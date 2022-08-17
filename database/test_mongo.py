@@ -14,9 +14,9 @@ class TestMongoClient():
         self.db = mongo.db.test_collection
     
     async def find(self):
-        cursor = self.db.find({})
+        cursor = self.db.find({'_id': 'test_2'})
         for res in await cursor.to_list(length=100):
-            print(res)
+            print(res, type(res))
     
     async def insert(self, data):
         if isinstance(data, dict):
@@ -27,4 +27,5 @@ class TestMongoClient():
 if __name__ == "__main__":
     client = TestMongoClient()
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(client.find())
+    # loop.run_until_complete(client.insert({'_id': 'test_2', 'b': 'b'}))
+    loop.run_until_complete(client.find())    
