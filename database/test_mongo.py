@@ -17,15 +17,22 @@ class TestMongoClient():
         cursor = self.db.find({'_id': 'test_2'})
         for res in await cursor.to_list(length=100):
             print(res, type(res))
+            
+    async def find_one(self):
+        cursor = await self.db.find_one({'_id': '111'})
+        print(cursor)
     
     async def insert(self, data):
         if isinstance(data, dict):
             data = [data]
         res = await self.db.insert_many(data)
         print(res)
+        
+    async def update(self, data):
+        pass
     
 if __name__ == "__main__":
     client = TestMongoClient()
     loop = asyncio.get_event_loop()
     # loop.run_until_complete(client.insert({'_id': 'test_2', 'b': 'b'}))
-    loop.run_until_complete(client.find())    
+    loop.run_until_complete(client.find_one())    
