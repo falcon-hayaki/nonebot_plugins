@@ -11,6 +11,7 @@ class BGTasks():
         self.enabled_tasks = [
             'test'
         ]
+        logger.debug('test')
 
     @property
     def bot(self):
