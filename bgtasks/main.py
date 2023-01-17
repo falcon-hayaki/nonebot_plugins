@@ -1,6 +1,7 @@
 import asyncio
 
 from nonebot import get_bot
+from nonebot.log import logger
 
 from plugins.scheduler_msg_queue import msg_queue
 
@@ -24,6 +25,6 @@ class BGTasks():
 
     async def test(self, interval=5):
         while True:
-            print('test')
+            logger.debug('test')
             await self.bot.send_group_msg(group_id=1014696092, message='test')
             await asyncio.sleep(interval)
