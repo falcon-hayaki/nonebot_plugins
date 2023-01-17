@@ -17,12 +17,12 @@ class BGTasks():
     def bot(self):
         return get_bot()
 
-    def run(self):
+    async def run(self):
         for task in self.enabled_tasks:
-            self.start_task(task)
+            await self.start_task(task)
 
-    def start_task(self, task_name):
-        self.loop.create_task(getattr(self, task_name)())
+    async def start_task(self, task_name):
+        await self.loop.create_task(getattr(self, task_name)())
 
     async def test(self, interval=5):
         while True:

@@ -15,6 +15,6 @@ if __name__ == '__main__':
     async def init_db():
         # 加载bg tasks
         bg_tasks = BGTasks()
-        bg_tasks.run()
+        await bg_tasks.run()
 
     nonebot.run()
