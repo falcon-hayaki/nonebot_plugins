@@ -10,8 +10,11 @@ if __name__ == '__main__':
     nonebot.load_builtin_plugins()
     nonebot.load_plugins(os.path.join(os.path.dirname(__file__), 'plugins'), 'plugins')
 
-    # 加载bg tasks
-    bg_tasks = BGTasks()
-    bg_tasks.run()
+    bot = nonebot.get_bot()
+    @bot.server_app.before_serving
+    async def init_db():
+        # 加载bg tasks
+        bg_tasks = BGTasks()
+        bg_tasks.run()
 
     nonebot.run()
