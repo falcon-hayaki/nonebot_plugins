@@ -3,6 +3,8 @@ from nonebot import NoticeSession, CommandSession, RequestSession
 import functools
 from typing import Union
 
+from utils.fileio import read_json
+
 SESSION_TYPES = (NoticeSession, CommandSession, RequestSession)
 MSG_TYPES = ('private', 'group', 'discuss')
 
@@ -65,6 +67,23 @@ def only_these_sub_type(sub_type: Union[str, list, None]=None):
             t = [sub_type] if isinstance(sub_type, str) else sub_type
             if session.ctx.get('sub_type') not in t:
                 return do_nothing()
+            return f(*args, **kwargs)
+        return wrapped
+    return decorate
+
+def white_list_mode():
+    '''
+    白名单模式。白名单见'resources/white_list.json'
+    '''
+    def decorate(f):
+        @functools.wraps(f)
+        async def wrapped(*args, **kwargs):
+            if not args:
+                return do_nothing()
+            session = args[0]
+            white_list = await read_json('resources/white_list.json')
+            if session.ctx.get('group_id') not in white_list:
+                do_nothing()
             return f(*args, **kwargs)
         return wrapped
     return decorate
