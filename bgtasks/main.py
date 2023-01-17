@@ -17,7 +17,7 @@ class BGTasks():
             self.start_task(task)
 
     def start_task(self, task_name):
-        self.loop.create_task(getattr(self, task_name))
+        self.loop.create_task(getattr(self, task_name)())
 
     def test(self, interval=5):
         while True:
