@@ -7,3 +7,4 @@ __pycache__/
 
 # self
 config.py
+nohup.out
