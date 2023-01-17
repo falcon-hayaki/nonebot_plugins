@@ -11,7 +11,7 @@ if __name__ == '__main__':
     nonebot.load_plugins(os.path.join(os.path.dirname(__file__), 'plugins'), 'plugins')
 
     bot = nonebot.get_bot()
-    @bot.server_app.after_serving
+    @nonebot.on_startup
     async def init_db():
         # 加载bg tasks
         bg_tasks = BGTasks()
