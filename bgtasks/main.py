@@ -19,7 +19,7 @@ class BGTasks():
     def start_task(self, task_name):
         self.loop.create_task(getattr(self, task_name)())
 
-    def test(self, interval=5):
+    async def test(self, interval=5):
         while True:
             self.bot.send_group_msg(group_id=1014696092, message='test')
-            asyncio.sleep(interval)
+            await asyncio.sleep(interval)
