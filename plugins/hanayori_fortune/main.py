@@ -8,7 +8,7 @@ resource_path = 'resources/hanayori_fortune'
 from utils import deco, fileio
 from .draw import Draw
 
-@on_command('hanayori_fortune', aliases=['抽签', '抽签签'], only_to_me=False)
+@on_command('抽签', aliases=['抽签签'], only_to_me=False)
 # @deco.only_these_group([1014696092])
 @deco.only_these_msg('group')
 async def hanayori_fortune(session: CommandSession):

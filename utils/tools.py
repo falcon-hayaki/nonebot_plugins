@@ -22,3 +22,13 @@ class Tools():
         for i, pos in enumerate(arg_pos):
             r[s[pos]] = s[pos+1:arg_pos[i+1]] if i < len(arg_pos) - 1 else s[pos+1:]
         return r
+    
+    @staticmethod
+    def parse_raw_messge(message: str):
+        '''
+        将ctx.raw_message解析成触发指令和content两部分
+        '''
+        message_split = message.strip().split()
+        if not message_split:
+            return '', ''
+        return message_split[0], ' '.join(message_split[1:])
