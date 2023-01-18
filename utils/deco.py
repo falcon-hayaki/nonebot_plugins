@@ -9,7 +9,7 @@ SESSION_TYPES = (NoticeSession, CommandSession, RequestSession)
 MSG_TYPES = ('private', 'group', 'discuss')
 
 async def do_nothing():
-    pass
+    return None
 
 def only_these_group(groups: Union[list, None]=None, reject_msg=''):
     def decorate(f):
