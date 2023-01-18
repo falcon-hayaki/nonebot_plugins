@@ -9,7 +9,7 @@ from plugins.scheduler_msg_queue import msg_queue
 @scheduler.scheduled_job('date', run_date=datetime.now())
 async def test_loop():
     print('test111')
-    loop1()
+    # loop1()
 
 def loop1():
     print('test')
