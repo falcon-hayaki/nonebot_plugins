@@ -1,11 +1,12 @@
 from nonebot import get_bot, scheduler
 
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
+from pytz import timezone
 from apscheduler.triggers.date import DateTrigger
 
 from plugins.scheduler_msg_queue import msg_queue
 
-@scheduler.scheduled_job('date', run_date=datetime.now(), timezone=timezone)
+@scheduler.scheduled_job('date', run_date=datetime.now()+timedelta(seconds=5))
 async def test_loop():
     await loop1()
 
