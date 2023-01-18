@@ -7,3 +7,6 @@ msg_queue = []
 @scheduler.scheduled_job('date', run_date=datetime.now(), timezone=timezone)
 async def test_loop():
     pass
+
+async def loop1():
+    pass

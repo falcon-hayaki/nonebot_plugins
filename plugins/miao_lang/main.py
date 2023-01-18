@@ -6,8 +6,8 @@ from .miao import Miao
 
 miao = Miao()
 
-@deco.only_these_msg('group')
 @on_command('reply', aliases=['喵喵'], only_to_me=False)
+@deco.only_these_msg('group')
 async def reply(session: CommandSession):
     message = session.ctx.raw_message
     _, text = parse_message(message)
