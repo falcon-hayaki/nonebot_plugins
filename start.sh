@@ -1,2 +1,2 @@
-conda activate nonebot
+# conda activate nonebot
 nohup python bot.py &
