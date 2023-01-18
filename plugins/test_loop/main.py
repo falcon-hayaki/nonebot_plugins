@@ -1,4 +1,4 @@
-from nonebot import get_bot, scheduler, on_command
+from nonebot import get_bot, scheduler, on_command, CommandSession
 
 from datetime import datetime, timedelta
 from pytz import timezone
@@ -8,7 +8,7 @@ from plugins.scheduler_msg_queue import msg_queue
 
 # @scheduler.scheduled_job('date', run_date=datetime.now(timezone("Asia/Shanghai"))+timedelta(minutes=1), timezone=timezone("Asia/Shanghai"))
 @on_command('测试测试', only_to_me=False)
-async def test_loop():
+async def test_loop(session: CommandSession):
     print('test111')
     loop1()
 
