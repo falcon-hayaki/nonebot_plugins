@@ -10,6 +10,7 @@ from plugins.scheduler_msg_queue import msg_queue
 @on_command('测试测试', only_to_me=False)
 async def test_loop(session: CommandSession):
     print('test111')
+    await session.send('111')
     loop1()
 
 def loop1():
