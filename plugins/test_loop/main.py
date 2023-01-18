@@ -6,7 +6,7 @@ from apscheduler.triggers.date import DateTrigger
 
 from plugins.scheduler_msg_queue import msg_queue
 
-@scheduler.scheduled_job('date', run_date=datetime.now()+timedelta(seconds=5))
+@scheduler.scheduled_job('date', run_date=datetime.now(timezone("Asia/Shanghai"))+timedelta(seconds=5), timezone=timezone("Asia/Shanghai"))
 async def test_loop():
     print('test111')
     await loop1()
@@ -17,7 +17,8 @@ async def loop1():
 
     delta = timedelta(seconds=5)
     trigger = DateTrigger(
-        run_date=datetime.now() + delta
+        run_date=datetime.now(timezone("Asia/Shanghai")) + delta,
+        timezone=timezone("Asia/Shanghai")
     )
 
     # 添加任务
