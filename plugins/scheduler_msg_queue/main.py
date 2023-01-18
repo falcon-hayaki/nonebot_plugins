@@ -4,6 +4,7 @@ msg_queue = []
 
 @scheduler.scheduled_job('cron', second='*/1')
 async def send_queue_msg():
+    print('test')
     bot = get_bot()
     if msg_queue:
         try:
