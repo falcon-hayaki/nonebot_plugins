@@ -8,9 +8,9 @@ resource_path = 'resources/hanayori_fortune'
 from utils import deco, fileio
 from .draw import Draw
 
-@on_command('hanayori_fortune', aliases=['抽签', '抽签签'], only_to_me=False)
 @deco.only_these_msg('group')
 # @deco.only_these_group([1014696092])
+@on_command('hanayori_fortune', aliases=['抽签', '抽签签'], only_to_me=False)
 async def hanayori_fortune(session: CommandSession):
     texts = await fileio.read_json(join(resource_path, 'fortune/copywriting.json'))
     titles = await fileio.read_json(join(resource_path, 'fortune/goodLuck.json'))
