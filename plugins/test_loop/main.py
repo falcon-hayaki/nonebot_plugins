@@ -8,14 +8,16 @@ from plugins.scheduler_msg_queue import msg_queue
 
 @scheduler.scheduled_job('date', run_date=datetime.now()+timedelta(seconds=5))
 async def test_loop():
+    print('test111')
     await loop1()
 
 async def loop1():
+    print('test')
     msg_queue.append(('group', 1014696092, 'test loop1'))
 
     delta = timedelta(seconds=5)
     trigger = DateTrigger(
-        run_date=datetime.datetime.now() + delta
+        run_date=datetime.now() + delta
     )
 
     # 添加任务
