@@ -1,6 +1,7 @@
 from os.path import join
 import random
-import datetime
+from datetime import datetime
+from pytz import timezone
 
 from nonebot import on_command, CommandSession, MessageSegment
 
@@ -14,8 +15,8 @@ from .draw import Draw
 async def hanayori_fortune(session: CommandSession):
     texts = await fileio.read_json(join(resource_path, 'fortune/copywriting.json'))
     titles = await fileio.read_json(join(resource_path, 'fortune/goodLuck.json'))
-    date_list = str(datetime.date.today()).split(sep='-')
-    seed = int(''.join(date_list)) + session.ctx.user_id
+    now = datetime.now(tz=timezone("Asia/Shanghai"))
+    seed = int(''.join([now.year, now.month, now.day, str(session.ctx.user_id)]))
     random.seed(seed)
     choice = random.choice(range(1, 12))
     random.seed(seed)
