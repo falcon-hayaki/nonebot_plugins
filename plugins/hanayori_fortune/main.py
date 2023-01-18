@@ -16,7 +16,7 @@ async def hanayori_fortune(session: CommandSession):
     texts = await fileio.read_json(join(resource_path, 'fortune/copywriting.json'))
     titles = await fileio.read_json(join(resource_path, 'fortune/goodLuck.json'))
     now = datetime.now(tz=timezone("Asia/Shanghai"))
-    seed = int(''.join([now.year, now.month, now.day, str(session.ctx.user_id)]))
+    seed = int(''.join([str(i) for i in [now.year, now.month, now.day, session.ctx.user_id]]))
     random.seed(seed)
     choice = random.choice(range(1, 12))
     random.seed(seed)
