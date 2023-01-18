@@ -1,0 +1,1 @@
+tail -n 1000 -f nohup.out
