@@ -2,7 +2,6 @@ import requests
 import json
 
 import config
-from utils.tools import pic_url2md5
 
 class TwitterManager():
     def __init__(self, requests_get_fn=None) -> None:
@@ -206,5 +205,4 @@ if __name__ == '__main__':
         imgs = quote_data['data'].get('imgs')
     print(tdata)
     if imgs:
-        imgs_md5 = [pic_url2md5(i) for i in imgs]
-        print(imgs_md5)
+        print(imgs)
