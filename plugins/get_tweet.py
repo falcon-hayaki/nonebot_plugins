@@ -5,8 +5,6 @@ import re
 from pytz import timezone
 from dateutil import parser
 
-from utils import deco
-from utils.tools import Tools
 from utils.twitter_manager import TwitterManager
 
 tm = TwitterManager()
