@@ -5,4 +5,4 @@ pymongo
 motor
 Pillow
 pytz
-dateutil
+python-dateutil
