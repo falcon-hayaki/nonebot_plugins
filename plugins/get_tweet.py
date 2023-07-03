@@ -14,13 +14,16 @@ tweet_url_rule = 'https:\/\/twitter\.com\/[a-zA-Z0-9_]+\/status\/([0-9]+).*'
 async def test(session: CommandSession):
     url = session.ctx.raw_message
     re_res = re.match(tweet_url_rule, url.strip())
+    print(re_res)
     if re_res is None:
         return 
     tid = re_res.groups()[0]
     res = tm.get_tweet_detail(tid)
+    print(res.status_code)
     if res.status_code != 200:
         return
     tdata, user_info = tm.parse_tweet_detail(res.json())
+    print(tdata)
     if not tdata:
         return
     try:
