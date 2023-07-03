@@ -4,3 +4,4 @@ nonebot[scheduler]
 pymongo
 motor
 Pillow
+pytz
