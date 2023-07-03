@@ -49,4 +49,5 @@ async def test(session: CommandSession):
         
     except Exception as e:
         msg = f'发生未知错误'
+    print(msg)
     await session.send(msg)
