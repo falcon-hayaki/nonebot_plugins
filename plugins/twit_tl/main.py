@@ -15,13 +15,11 @@ resource_path = 'resources/twitter_tl'
 interval = 5
 tm = TwitterManager()
 
-# @scheduler.scheduled_job(
-#     'interval',
-#     minutes=interval
-# )
-# async def _():
-@on_command('测试', only_to_me=False)
-async def testtest(session: CommandSession):
+@scheduler.scheduled_job(
+    'interval',
+    minutes=interval
+)
+async def _():
     '''
     main loop function
     '''
