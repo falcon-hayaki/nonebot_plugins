@@ -6,7 +6,7 @@ from pytz import timezone
 import copy
 import traceback
 
-from nonebot import scheduler, get_bot, MessageSegment
+from nonebot import scheduler, get_bot, MessageSegment, on_command, CommandSession
 
 from utils import deco, fileio
 from utils.twitter_manager import TwitterManager
@@ -15,11 +15,13 @@ resource_path = 'resources/twitter_tl'
 interval = 5
 tm = TwitterManager()
 
-@scheduler.scheduled_job(
-    'interval',
-    minutes=interval
-)
-async def _():
+# @scheduler.scheduled_job(
+#     'interval',
+#     minutes=interval
+# )
+# async def _():
+@on_command('测试', only_to_me=False)
+async def testtest(session: CommandSession):
     '''
     main loop function
     '''
