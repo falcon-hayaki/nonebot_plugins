@@ -11,7 +11,7 @@ from .draw import Draw
 
 @on_command('抽签', aliases=['抽签签'], only_to_me=False)
 # @deco.only_these_group([1014696092])
-@deco.only_these_msg('group')
+# @deco.only_these_msg('group')
 async def hanayori_fortune(session: CommandSession):
     texts = await fileio.read_json(join(resource_path, 'fortune/copywriting.json'))
     titles = await fileio.read_json(join(resource_path, 'fortune/goodLuck.json'))
