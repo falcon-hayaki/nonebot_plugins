@@ -110,3 +110,6 @@ async def _():
     for uid in uid_to_del:
         del data[uid]
     await fileio.write_json(join(resource_path, "data.json"), data)
+    
+# @on_command('关注', aliases=['抽签签'], only_to_me=False, shell_like=True)
+# async def hanayori_fortune(session: CommandSession):
