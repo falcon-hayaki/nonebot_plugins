@@ -75,25 +75,33 @@ async def _():
                     created_at = parser.parse(tdata['created_at']).astimezone(timezone("Asia/Shanghai"))
                     # 超过10分钟的推默认超时, 不再处理
                     now = datetime.now(timezone("Asia/Shanghai"))
+                    imgs = None
+                    videos = None
                     if now - created_at > timedelta(minutes=10):
                         continue
                     if tweet_type == 'default':
                         t = f"{user_info['name']}的新推\n发布于{created_at}\n\n{tdata['text']}\n\n{url}"
                         imgs = tdata.get('imgs')
+                        videos = tdata.get('videos')
                     elif tweet_type == 'retweet':
                         retweet_data = tdata['retweet_data']
                         origin_created_at = parser.parse(retweet_data['data']['created_at']).astimezone(timezone("Asia/Shanghai"))
                         t = f"{user_info['name']}转推了\n转发自:\n{retweet_data['user_info']['name']}发布于{origin_created_at}\n\n{retweet_data['data']['text']}\n\n{url}"
                         imgs = retweet_data['data'].get('imgs')
+                        videos = retweet_data['data'].get('videos')
                     elif tweet_type == 'quote':
                         quote_data = tdata['quote_data']
                         origin_created_at = parser.parse(quote_data['data']['created_at']).astimezone(timezone("Asia/Shanghai"))
                         t = f"{user_info['name']}转推了\n发布于{created_at}\n\n{tdata['text']}\n\n转发自:\n{quote_data['user_info']['name']}发布于{origin_created_at}\n\n{quote_data['data']['text']}\n\n{url}"
                         imgs = quote_data['data'].get('imgs')
+                        videos = quote_data['data'].get('videos')
                     for group in subscribes[uid]['groups']:
                         if imgs:
                             for img in imgs:
                                 t += MessageSegment.image(img)
+                        if videos:
+                            for video in videos:
+                                t += MessageSegment.video(video)
                         await bot.send_group_msg(group_id=group, message=t)
                 data[uid]['timeline'] = copy.deepcopy(timeline)
             await fileio.write_json(join(resource_path, "data.json"), data)

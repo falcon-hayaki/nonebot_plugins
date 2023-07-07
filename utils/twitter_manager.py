@@ -156,6 +156,13 @@ class TwitterManager():
         tweet_data['created_at'] = legacy['created_at']
         if 'extended_entities' in legacy and 'media' in legacy['extended_entities']:
             tweet_data['imgs'] = [m['media_url_https'] for m in legacy['extended_entities']['media'] if m['type'] == 'photo']
+            tweet_data['videos'] = [
+                r['url']
+                for m in legacy['extended_entities']['media'] 
+                if m['type'] == 'video' and m.get('video_info', {}).get('variants', [])
+                for r in m['video_info']['variants']
+                if r['content_type'] == 'video/mp4'
+            ]
         
         return tweet_data
     
