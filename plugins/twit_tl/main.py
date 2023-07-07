@@ -100,6 +100,7 @@ async def _():
                             for img in imgs:
                                 t += MessageSegment.image(img)
                         if videos:
+                            print(videos)
                             for video in videos:
                                 t += MessageSegment.video(video)
                         await bot.send_group_msg(group_id=group, message=t)
