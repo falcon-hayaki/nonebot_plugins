@@ -74,6 +74,9 @@ class TwitterManager():
     @staticmethod
     def parse_timeline(timeline):
         if 'data' not in timeline:
+            # handle error
+            if 'errors' in timeline:
+                return timeline
             return None
         # uid不存在
         if not timeline['data'].get('user'):

@@ -47,6 +47,9 @@ async def _():
                 timeline = tm.parse_timeline(timeline_row)
                 if timeline is None:
                     raise ValueError(f'tl value error: {timeline_row}')
+                # handle errors
+                elif 'errors' in timeline:
+                    return
                 data[uid]['timeline'] = timeline
             # 检查更新
             else:
@@ -73,6 +76,9 @@ async def _():
                 timeline = tm.parse_timeline(timeline_row)
                 if timeline is None:
                     raise ValueError(f'tl value error: {timeline_row}')
+                # handle errors
+                elif 'errors' in timeline:
+                    return
                 new_tweets = [t for t in timeline if t not in data[uid]['timeline']]
                 for t in new_tweets:
                     tdata = timeline[t]
