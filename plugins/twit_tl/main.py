@@ -43,7 +43,10 @@ async def _():
             if uid not in data:
                 user_info = tm.parse_user_info(tm.get_user_info(uid).json())
                 data[uid] = copy.deepcopy(user_info)
-                timeline = tm.parse_timeline(tm.get_user_timeline(data[uid]['id']).json())
+                timeline_row = tm.get_user_timeline(data[uid]['id']).json()
+                timeline = tm.parse_timeline(timeline_row)
+                if timeline is None:
+                    raise ValueError(f'tl value error: {timeline_row}')
                 data[uid]['timeline'] = timeline
             # 检查更新
             else:
@@ -66,7 +69,10 @@ async def _():
                                 t = f"{data[uid]['name']}更新了{k}\n从\n{data[uid][k]}\n更改为\n{v}"
                                 await bot.send_group_msg(group_id=group, message=t)
                         data[uid][k] = v
-                timeline = tm.parse_timeline(tm.get_user_timeline(data[uid]['id']).json())
+                timeline_row = tm.get_user_timeline(data[uid]['id']).json()
+                timeline = tm.parse_timeline(timeline_row)
+                if timeline is None:
+                    raise ValueError(f'tl value error: {timeline_row}')
                 new_tweets = [t for t in timeline if t not in data[uid]['timeline']]
                 for t in new_tweets:
                     tdata = timeline[t]
@@ -100,7 +106,6 @@ async def _():
                             for img in imgs:
                                 t += MessageSegment.image(img)
                         if videos:
-                            print(videos)
                             for video in videos:
                                 t += MessageSegment.video(video)
                         await bot.send_group_msg(group_id=group, message=t)
