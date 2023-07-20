@@ -5,6 +5,7 @@ from dateutil import parser
 from pytz import timezone
 import copy
 import traceback
+import asyncio
 
 from nonebot import scheduler, get_bot, MessageSegment, on_command, CommandSession
 
@@ -117,6 +118,7 @@ async def _():
                         await bot.send_group_msg(group_id=group, message=t)
                 data[uid]['timeline'] = copy.deepcopy(timeline)
             await fileio.write_json(join(resource_path, "data.json"), data)
+            await asyncio.sleep(5)
         except Exception as e:
             print(e, traceback.format_exc())
             t = f'twitter tl scheduler error\nuid: {uid}\ntraceback: {traceback.format_exc()}'
