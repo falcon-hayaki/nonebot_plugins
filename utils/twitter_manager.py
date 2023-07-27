@@ -86,6 +86,7 @@ class TwitterManager():
         for i in instructions:
             if i['type'] == 'TimelineAddEntries':
                 timeline_data_source = i
+                break
         # 时间线不存在
         if timeline_data_source is None:
             return None
@@ -119,6 +120,9 @@ class TwitterManager():
                 return tweet_id, entry_type, None, None
         else:
             return tweet_id, entry_type, None, None
+        
+        if result['__typename'] == 'TweetWithVisibilityResults':
+            result = result['tweet']
         
         legacy = result['legacy']
         tweet_data = TwitterManager.parse_legacy(legacy)
