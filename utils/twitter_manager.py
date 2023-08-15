@@ -121,7 +121,7 @@ class TwitterManager():
         else:
             return tweet_id, entry_type, None, None
         
-        if result['__typename'] == 'TweetWithVisibilityResults':
+        if result.get('__typename', '') == 'TweetWithVisibilityResults':
             result = result['tweet']
         
         legacy = result['legacy']
