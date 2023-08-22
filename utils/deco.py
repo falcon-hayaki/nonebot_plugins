@@ -8,8 +8,8 @@ from utils.fileio import read_json
 SESSION_TYPES = (NoticeSession, CommandSession, RequestSession)
 MSG_TYPES = ('private', 'group', 'discuss')
 
-async def do_nothing():
-    return None
+async def do_nothing(*args, **kwargs):
+    pass
 
 def only_these_group(groups: Union[list, None]=None, reject_msg=''):
     def decorate(f):
@@ -18,14 +18,14 @@ def only_these_group(groups: Union[list, None]=None, reject_msg=''):
             if not groups:
                 return f(*args, kwargs)
             if not args:
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             session = args[0]
             if not isinstance(session, SESSION_TYPES):
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             if session.ctx.get('group_id') not in groups:
                 if reject_msg:
                     session.send(reject_msg)
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             return f(*args, **kwargs)
         return wrapped
     return decorate
@@ -41,13 +41,13 @@ def only_these_msg(msg_types: Union[str, list, None]=None):
             if not msg_types:
                 return f(*args, **kwargs)
             if not args:
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             session = args[0]
             if not isinstance(session, CommandSession):
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             t = [msg_types] if isinstance(msg_types, str) else msg_types
             if session.ctx.get('message_type') not in t:
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             return f(*args, **kwargs)
         return wrapped
     return decorate
@@ -62,11 +62,11 @@ def only_these_sub_type(sub_type: Union[str, list, None]=None):
             if not sub_type:
                 return f(*args, **kwargs)
             if not args:
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             session = args[0]
             t = [sub_type] if isinstance(sub_type, str) else sub_type
             if session.ctx.get('sub_type') not in t:
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             return f(*args, **kwargs)
         return wrapped
     return decorate
@@ -79,11 +79,11 @@ def white_list_mode():
         @functools.wraps(f)
         async def wrapped(*args, **kwargs):
             if not args:
-                return do_nothing()
+                return do_nothing(*args, **kwargs)
             session = args[0]
             white_list = await read_json('resources/white_list.json')
             if session.ctx.get('group_id') not in white_list:
-                do_nothing()
+                do_nothing(*args, **kwargs)
             return f(*args, **kwargs)
         return wrapped
     return decorate
