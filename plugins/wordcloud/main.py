@@ -14,17 +14,17 @@ resource_path = 'resources/wordcloud'
 
 enabled_group_list = [1014696092, 723979982, 709216479, 1087846478]
 
-@scheduler.scheduled_job(
-    'cron',
-    day_of_week='*',
-    hour='0',
-    minute='0',
-    second='0'
-)
 # @scheduler.scheduled_job(
-#     'interval',
-#     minutes=5
+#     'cron',
+#     day_of_week='*',
+#     hour='0',
+#     minute='0',
+#     second='0'
 # )
+@scheduler.scheduled_job(
+    'interval',
+    minutes=5
+)
 async def _():
     bot = get_bot()
     
