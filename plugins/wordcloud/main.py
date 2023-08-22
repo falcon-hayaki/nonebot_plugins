@@ -41,6 +41,7 @@ async def _():
     
     for group_id in enabled_group_list:
         file_path = os.path.join(resource_path, f'chat_history/{group_id}.txt')
+        group_word_cloud = '\n草，这不是啥也没聊吗'
         if os.path.exists(file_path):
             text = await fileio.read_txt(file_path)
             if text.strip():
@@ -62,18 +63,16 @@ async def _():
                 wc.to_file(img_path)
                 # 发送图片
                 img_path_send = f'file://{os.getcwd()}/{img_path}'
-                send_content = 'say something\n{}'.format(MessageSegment.image(img_path_send))
-                await bot.send_group_msg(group_id=1014696092, message=send_content)
+                group_word_cloud = MessageSegment.image(img_path_send)
             await fileio.clear_file(file_path)
+        send_content = '你群今日群聊词云已生成，请查收\n{}'.format(group_word_cloud)
+        await bot.send_group_msg(group_id=1014696092, message=send_content)
 
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
 @deco.only_these_group(enabled_group_list)
 async def gather_group_msg(session: CommandSession):
     msg_text = session.current_arg_text + '\n'
     await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
-    # if session.ctx.group_id and session.ctx.group_id in enabled_group_list:
-    #     msg_text = session.current_arg_text + '\n'
-    #     await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
 
 
 
