@@ -67,10 +67,11 @@ async def _():
             await fileio.clear_file(file_path)
 
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
-@deco.only_these_group(enabled_group_list)
+# @deco.only_these_group(enabled_group_list)
 async def gather_group_msg(session: CommandSession):
-    msg_text = session.current_arg_text + '\n'
-    await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
+    if session.ctx.group_id and session.ctx.group_id in enabled_group_list:
+        msg_text = session.current_arg_text + '\n'
+        await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
 
 
 
