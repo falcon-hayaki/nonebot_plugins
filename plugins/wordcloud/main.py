@@ -67,7 +67,7 @@ async def _():
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
 @deco.only_these_group(enabled_group_list)
 async def gather_group_msg(session: CommandSession):
-    msg_text = session.enabled_group_list
+    msg_text = session.current_arg_text
     await fileio.addline(os.path.join(resource_path, f'{session.ctx.get("group_id")}.txt'), msg_text)
 
 
