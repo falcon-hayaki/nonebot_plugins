@@ -23,7 +23,7 @@ enabled_group_list = [1014696092, 723979982, 709216479, 1087846478]
 # )
 @scheduler.scheduled_job(
     'interval',
-    minutes=10
+    minutes=5
 )
 async def _():
     bot = get_bot()
@@ -62,7 +62,8 @@ async def _():
                 img_path = os.path.join(resource_path, f'group_wordcloud/{group_id}.png')
                 wc.to_file(img_path)
                 # 发送图片
-                send_content = f'say something\n{MessageSegment.image(img_path)}'
+                img_path_send = f'file://{os.getcwd()}/{img_path}'
+                send_content = 'say something\n{}'.format(MessageSegment.image(img_path_send))
                 await bot.send_group_msg(group_id=1014696092, message=send_content)
             await fileio.clear_file(file_path)
 
@@ -70,7 +71,6 @@ async def _():
 @deco.only_these_group(enabled_group_list)
 async def gather_group_msg(session: CommandSession):
     msg_text = session.current_arg_text
-    print('\n{}\n'.format(msg_text))
     await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
 
 
