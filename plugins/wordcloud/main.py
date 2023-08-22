@@ -44,25 +44,26 @@ async def _():
         if os.path.exists(file_path):
             text = await fileio.read_txt(file_path)
             print(text)
-            jbc = list(jieba.cut(text, use_paddle=True))
-            stopwords.update(jbc)
-        
-            wc = WordCloud(background_color="white",# 设置背景颜色
-                max_words=2000, # 词云显示的最大词数
-                height=400, # 图片高度
-                width=800, # 图片宽度
-                max_font_size=50, #最大字体     
-                stopwords=stopwords, # 设置停用词
-                font_path=os.path.join(resource_path, 'msyh.ttc'), # 兼容中文字体，不然中文会显示乱码
-                )
-            # 生成词云 
-            wc.generate(text)
-            # 生成的词云图像保存到本地
-            img_path = os.path.join(resource_path, f'group_wordcloud/{group_id}.png')
-            wc.to_file(img_path)
-            # 发送图片
-            send_content = f'say something\n{MessageSegment.image(img_path)}'
-            await bot.send_group_msg(group_id=1014696092, message=send_content)
+            if text.strip():
+                jbc = list(jieba.cut(text, use_paddle=True))
+                stopwords.update(jbc)
+            
+                wc = WordCloud(background_color="white",# 设置背景颜色
+                    max_words=2000, # 词云显示的最大词数
+                    height=400, # 图片高度
+                    width=800, # 图片宽度
+                    max_font_size=50, #最大字体     
+                    stopwords=stopwords, # 设置停用词
+                    font_path=os.path.join(resource_path, 'msyh.ttc'), # 兼容中文字体，不然中文会显示乱码
+                    )
+                # 生成词云 
+                wc.generate(text)
+                # 生成的词云图像保存到本地
+                img_path = os.path.join(resource_path, f'group_wordcloud/{group_id}.png')
+                wc.to_file(img_path)
+                # 发送图片
+                send_content = f'say something\n{MessageSegment.image(img_path)}'
+                await bot.send_group_msg(group_id=1014696092, message=send_content)
 
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
 @deco.only_these_group(enabled_group_list)
