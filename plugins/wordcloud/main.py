@@ -69,6 +69,7 @@ async def _():
 @deco.only_these_group(enabled_group_list)
 async def gather_group_msg(session: CommandSession):
     msg_text = session.current_arg_text
+    print('\n{}\n'.format(msg_text))
     await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
 
 

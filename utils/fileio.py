@@ -20,4 +20,4 @@ async def read_txt(path: str):
 
 async def addline(path: str, line: str):
     async with aiofiles.open(path, 'a+') as f:
-        f.write(line)
+        await f.write(line)
