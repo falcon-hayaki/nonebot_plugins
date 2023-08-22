@@ -11,7 +11,7 @@ tm = TwitterManager()
 tweet_url_rule = 'https:\/\/(?:x|twitter)\.com\/[a-zA-Z0-9_]+\/status\/([0-9]+).*'
 
 @on_command('tweet', patterns=tweet_url_rule, only_to_me=False)
-async def test(session: CommandSession):
+async def get_tweet(session: CommandSession):
     url = session.ctx.raw_message
     re_res = re.match(tweet_url_rule, url.strip())
     if re_res is None:
