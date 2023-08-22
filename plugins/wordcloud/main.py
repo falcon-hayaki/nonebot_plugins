@@ -44,7 +44,6 @@ async def _():
         if os.path.exists(file_path):
             text = await fileio.read_txt(file_path)
             if text.strip():
-                text += '\n'
                 jbc = list(jieba.cut(text, use_paddle=True))
                 stopwords.update(jbc)
             
@@ -70,7 +69,7 @@ async def _():
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
 @deco.only_these_group(enabled_group_list)
 async def gather_group_msg(session: CommandSession):
-    msg_text = session.current_arg_text
+    msg_text = session.current_arg_text + '\n'
     await fileio.addline(os.path.join(resource_path, f'chat_history/{session.ctx.get("group_id")}.txt'), msg_text)
 
 
