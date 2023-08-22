@@ -65,8 +65,8 @@ async def _():
                 img_path_send = f'file://{os.getcwd()}/{img_path}'
                 group_word_cloud = MessageSegment.image(img_path_send)
             await fileio.clear_file(file_path)
-        send_content = '你群今日群聊词云已生成，请查收\n{}'.format(group_word_cloud)
-        await bot.send_group_msg(group_id=1014696092, message=send_content)
+        send_content = '[测试版]你群今日群聊词云已生成，请查收\n{}'.format(group_word_cloud)
+        await bot.send_group_msg(group_id=group_id, message=send_content)
 
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
 @deco.only_these_group(enabled_group_list)
