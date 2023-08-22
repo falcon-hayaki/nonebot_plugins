@@ -43,8 +43,8 @@ async def _():
         file_path = os.path.join(resource_path, f'chat_history/{group_id}.txt')
         if os.path.exists(file_path):
             text = await fileio.read_txt(file_path)
-            print(text)
             if text.strip():
+                text += '\n'
                 jbc = list(jieba.cut(text, use_paddle=True))
                 stopwords.update(jbc)
             
@@ -64,6 +64,7 @@ async def _():
                 # 发送图片
                 send_content = f'say something\n{MessageSegment.image(img_path)}'
                 await bot.send_group_msg(group_id=1014696092, message=send_content)
+            await fileio.clear_file(file_path)
 
 @on_command('gather_group_msg', patterns='.*', only_to_me=False)
 @deco.only_these_group(enabled_group_list)

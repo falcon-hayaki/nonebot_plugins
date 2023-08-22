@@ -21,3 +21,7 @@ async def read_txt(path: str):
 async def addline(path: str, line: str):
     async with aiofiles.open(path, 'a+') as f:
         await f.write(line)
+        
+async def clear_file(path: str):
+    async with open(path, "w") as f:
+        await f.truncate(0)
