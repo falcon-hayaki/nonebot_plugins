@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
 import requests
+import copy
 import jieba
 jieba.enable_paddle()
 
@@ -12,7 +13,7 @@ from utils import deco, fileio
 
 resource_path = 'resources/wordcloud'
 
-enabled_group_list = [1014696092, 723979982, 709216479, 1087846478]
+enabled_group_list = [1014696092, 723979982, 709216479, 1087846478, 1056873681, 659667024]
 
 @scheduler.scheduled_job(
     'cron',
@@ -45,15 +46,16 @@ async def _():
         if os.path.exists(file_path):
             text = await fileio.read_txt(file_path)
             if text.strip():
-                jbc = list(jieba.cut(text, use_paddle=True))
-                stopwords.update(jbc)
+                jbc = list(jieba.cut(text))
+                stopwords_group = copy.deepcopy(stopwords)
+                stopwords_group.update(jbc)
             
                 wc = WordCloud(background_color="white",# 设置背景颜色
                     max_words=2000, # 词云显示的最大词数
                     height=400, # 图片高度
                     width=800, # 图片宽度
                     max_font_size=50, #最大字体     
-                    stopwords=stopwords, # 设置停用词
+                    stopwords=stopwords_group, # 设置停用词
                     font_path=os.path.join(resource_path, 'msyh.ttc'), # 兼容中文字体，不然中文会显示乱码
                     )
                 # 生成词云 
