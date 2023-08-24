@@ -22,7 +22,7 @@ enabled_group_list = [1014696092, 723979982, 709216479, 1087846478, 1056873681, 
     'cron',
     day_of_week='*',
     hour='1',
-    minute='47',
+    minute='51',
     second='0'
 )
 # @scheduler.scheduled_job(
