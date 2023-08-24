@@ -4,8 +4,10 @@ from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
 import requests
 import copy
-import jieba
 import traceback
+import paddle
+paddle.enable_static
+import jieba
 jieba.enable_paddle()
 
 from nonebot import on_command, CommandSession, scheduler, get_bot, MessageSegment
@@ -48,7 +50,7 @@ async def _():
             text = await fileio.read_txt(file_path)
             if text.strip():
                 try:
-                    jbc = list(jieba.cut(text))
+                    jbc = list(jieba.cut(text, use_paddle=True))
                     stopwords_group = copy.deepcopy(stopwords)
                     stopwords_group.update(jbc)
                 
@@ -70,7 +72,7 @@ async def _():
                     group_word_cloud = MessageSegment.image(img_path_send)
                 except Exception as e:
                     msg = f'catch exception: generate wordcloud\ne: {e}\ntraceback:\n{traceback.print_exc()}'
-                    bot.send_group_msg(group_id=1014696092, message=msg)
+                    await bot.send_group_msg(group_id=1014696092, message=msg)
             await fileio.clear_file(file_path)
         send_content = '[测试版]你群今日群聊词云已生成，请查收\n{}'.format(group_word_cloud)
         await bot.send_group_msg(group_id=group_id, message=send_content)
