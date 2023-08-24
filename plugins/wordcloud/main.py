@@ -5,10 +5,10 @@ from PIL import Image
 import requests
 import copy
 import traceback
-import paddle
-paddle.enable_static
+# import paddle
+# paddle.enable_static
 import jieba
-jieba.enable_paddle()
+# jieba.enable_paddle()
 
 from nonebot import on_command, CommandSession, scheduler, get_bot, MessageSegment
 
@@ -50,7 +50,8 @@ async def _():
             text = await fileio.read_txt(file_path)
             if text.strip():
                 try:
-                    jbc = list(jieba.cut(text, use_paddle=True))
+                    jbc = list(jieba.cut(text))
+                    # jbc = list(jieba.cut(text, use_paddle=True))
                     stopwords_group = copy.deepcopy(stopwords)
                     stopwords_group.update(jbc)
                 
